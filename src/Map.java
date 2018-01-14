@@ -46,7 +46,7 @@ public class Map {
     public Map()
     {
         startPoint = new Position(1,0);
-        finishPoint = new Position (12,16);
+        finishPoint = new Position (15,11);
     }
 
     public Position getStartPoint() {
@@ -89,15 +89,18 @@ public class Map {
 
     public void drawMap(Graphics g)
     {
-        for(int y = 0; y < Map.getSizeWidth(); y++)
+        for(int w = 0; w < sizeWidth; w++)
         {
-            for(int x = 0; x < Map.getSizeHeight(); x++)
+            for(int h = 0; h < sizeHeight; h++)
             {
-                if(this.getMap()[x][y] == 0) g.setColor(Color.white);
+                if((h == startPoint.getY() && w == startPoint.getX())
+                        || (h == finishPoint.getY() && w == finishPoint.getX()))
+                    g.setColor(new Color(0x1F9645));
+                else if(this.getMap()[h][w] == 0) g.setColor(Color.white);
                 else g.setColor(Color.black);
 
-                g.fillRect(y*Map.getRectangleSizeWidth(),
-                        x*Map.getRectangleSizeHeight(),
+                g.fillRect(w*Map.getRectangleSizeWidth(),
+                        h*Map.getRectangleSizeHeight(),
                         Map.getRectangleSizeHeight(),
                         Map.getRectangleSizeWidth());
             }

@@ -32,6 +32,24 @@ public class Position {
         moveY(incrementY);
     }
 
+    public void move(Tuple tuple) {
+        this.move(tuple.getX1(), tuple.getX2());
+    }
+
+    public Position moveNewPosition(Tuple t)
+    {
+        Position res = new Position(x, y);
+        res.move(t);
+        return res;
+    }
+
+    public static int checkPosInMaze(Position pos, Map maze)
+    {
+        return (pos.getX() >= 0 && pos.getY() >= 0
+            && pos.getX() < Map.getSizeHeight() && pos.getY() < Map.getSizeWidth())
+            ? maze.getMap()[pos.getX()][pos.getY()] : 1;
+    }
+
     public int getX() { return this.x; }
 
     public int getY() { return this.y; }
