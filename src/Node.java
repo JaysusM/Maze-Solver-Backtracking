@@ -4,7 +4,6 @@ import java.util.Comparator;
 public class Node {
 
     private Position position;
-    private boolean visited;
 
     private ArrayList<Tuple> paths;
 
@@ -19,18 +18,6 @@ public class Node {
     {
         paths.remove(tuple);
         this.paths.sort(new leftRightPath());
-        checkVisited();
-    }
-
-    public boolean isVisited()
-    {
-        return visited;
-    }
-
-    public void checkVisited()
-    {
-        if(paths.isEmpty()) visited = true;
-        else visited = false;
     }
 
     public Position getPosition() {
@@ -45,8 +32,17 @@ public class Node {
     {
         public int compare(Tuple t1, Tuple t2)
         {
-            return (t1.getX1() >= t2.getX2()) ? 1 : -1;
+            int res = Integer.compare(t1.getX1(), t2.getX1());
+            if(res != 0)
+                return res;
+            else
+                return Integer.compare(t2.getX2(), t1.getX2());
         }
+    }
+
+    public boolean equals(Object o)
+    {
+        return (o instanceof Node) && (((Node) o).position == this.position);
     }
 
 }

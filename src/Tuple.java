@@ -21,4 +21,9 @@ public class Tuple {
     public static final Tuple DOWN = new Tuple(0,1);
     public static final Tuple LEFT = new Tuple(-1,0);
     public static final Tuple RIGHT = new Tuple(1,0);
+
+    public String toString()
+    {
+        return "(" + x1 + ", " + x2 + ")";
+    }
 }

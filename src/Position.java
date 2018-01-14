@@ -47,7 +47,7 @@ public class Position {
     {
         return (pos.getX() >= 0 && pos.getY() >= 0
             && pos.getX() < Map.getSizeHeight() && pos.getY() < Map.getSizeWidth())
-            ? maze.getMap()[pos.getX()][pos.getY()] : 1;
+            ? maze.getMap()[pos.getY()][pos.getX()] : 1;
     }
 
     public int getX() { return this.x; }
@@ -57,6 +57,11 @@ public class Position {
     public String toString()
     {
         return "(" + this.x + ", " + this.y + ")";
+    }
+
+    public boolean equals(Object o)
+    {
+        return (o instanceof Position) && (((Position) o).x == x) && (((Position) o).y == y);
     }
 
 }
