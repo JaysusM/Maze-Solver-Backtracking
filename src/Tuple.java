@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Tuple {
 
     private int x1;
@@ -16,11 +18,6 @@ public class Tuple {
     public int getX2() {
         return x2;
     }
-
-    public static final Tuple UP = new Tuple(0,-1);
-    public static final Tuple DOWN = new Tuple(0,1);
-    public static final Tuple LEFT = new Tuple(-1,0);
-    public static final Tuple RIGHT = new Tuple(1,0);
 
     public String toString()
     {

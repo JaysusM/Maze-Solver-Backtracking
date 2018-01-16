@@ -7,8 +7,8 @@
 
 public class Position {
 
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     public Position(int x, int y)
     {
@@ -16,38 +16,23 @@ public class Position {
         this.y = y;
     }
 
-    public void moveX(int increment)
+    public Position moveX(int increment)
     {
-        x += increment;
+        return new Position(x + increment, y + increment);
     }
 
-    public void moveY(int increment)
+    public Position moveY(int increment)
     {
-        y += increment;
+        return new Position(this.x, y + increment);
     }
 
-    public void move(int incrementX, int incrementY)
+    public Position move(int incrementX, int incrementY)
     {
-        moveX(incrementX);
-        moveY(incrementY);
+       return new Position(x + incrementX, y + incrementY);
     }
 
-    public void move(Tuple tuple) {
-        this.move(tuple.getX1(), tuple.getX2());
-    }
-
-    public Position moveNewPosition(Tuple t)
-    {
-        Position res = new Position(x, y);
-        res.move(t);
-        return res;
-    }
-
-    public static int checkPosInMaze(Position pos, Map maze)
-    {
-        return (pos.getX() >= 0 && pos.getY() >= 0
-            && pos.getX() < Map.getSizeHeight() && pos.getY() < Map.getSizeWidth())
-            ? maze.getMap()[pos.getY()][pos.getX()] : 1;
+    public Position move(Tuple tuple) {
+        return this.move(tuple.getX1(), tuple.getX2());
     }
 
     public int getX() { return this.x; }

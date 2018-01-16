@@ -11,7 +11,9 @@ public class Main {
         mainFrame.setLocation(200,200);
         mainFrame.setVisible(true);
         mainFrame.setMinimumSize(new Dimension(Map.getFrameWidth(),
-                Map.getFrameHeight() + mainFrame.getInsets().top));
+                Map.getFrameHeight()
+                        + mainFrame.getInsets().top
+                        + mainFrame.getInsets().bottom));
 
     }
 }

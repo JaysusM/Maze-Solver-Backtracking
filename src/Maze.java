@@ -10,21 +10,33 @@ public class Maze extends JPanel implements ActionListener {
     private Map maze;
     private Position currentPosition;
     private final int pointerConversionRatio = 10;
-    private final ArrayList<Tuple> moves = new ArrayList<>();
-    private Stack<Node> paths = new Stack<>();
-    private boolean isBacktracking = false;
-    private ArrayList<Position> visited = new ArrayList<>();
-    private Position last;
+    private ArrayList<Tuple> moves;
+    private Stack<Position> positionStack;
+    private ArrayList<Position> visited;
+    private boolean solved;
+
+    private static final Tuple UP = new Tuple(0,-1);
+    private static final Tuple DOWN = new Tuple(0,1);
+    private static final Tuple LEFT = new Tuple(-1,0);
+    private static final Tuple RIGHT = new Tuple(1,0);
 
     public Maze()
     {
+        visited = new ArrayList<>();
+        positionStack = new Stack<>();
+        moves = new ArrayList<>();
+        solved = false;
+
         maze = new Map();
-        currentPosition = maze.getStartPoint().moveNewPosition(new Tuple(0,0));
+        currentPosition = maze.getFinishPoint();
         visited.add(currentPosition);
-        moves.add(Tuple.UP);
-        moves.add(Tuple.DOWN);
-        moves.add(Tuple.LEFT);
-        moves.add(Tuple.RIGHT);
+
+        positionStack.push(currentPosition);
+
+        moves.add(UP);
+        moves.add(DOWN);
+        moves.add(LEFT);
+        moves.add(RIGHT);
     }
 
     /**
@@ -44,93 +56,79 @@ public class Maze extends JPanel implements ActionListener {
                         + pointerConversionRatio/2,
                 Map.getRectangleSizeWidth() - pointerConversionRatio,
                 Map.getRectangleSizeHeight() -  pointerConversionRatio);
-        timerMove.start();
+        if(solved)
+            paintWin(g);
+        else
+            timerMove.start();
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (currentPosition != maze.getFinishPoint()) {
+        if (!currentPosition.equals(maze.getFinishPoint())) {
             backTrackingSolver();
             repaint();
+        } else {
+            solved = true;
+            repaint();
+            timerMove.stop();
         }
     }
 
     public void backTrackingSolver()
     {
-        Tuple currentPath;
-        Node current = checkPaths(currentPosition.moveNewPosition(new Tuple(0,0)));
-
-        if(currentPosition.equals(maze.getStartPoint()))
-        {
-            currentPosition.move(current.getPaths().get(0));
-            visited.add(currentPosition.moveNewPosition(new Tuple(0,0)));
-        }
-        else if(paths.contains(current)) {
-
-            if(isBacktracking) isBacktracking = false;
-
-            if(paths.peek().getPaths().size() == 0)
-                throw new MazeException("Solution couldn't be founded.");
-
-            Node currentNode = paths.pop();
-            currentPath = currentNode.getPaths().get(0);
-            currentNode.deletePath(currentPath);
-            if(currentNode.getPaths().size() != 0)
-                paths.push(currentNode);
-            currentPosition.move(currentPath);
-
-            visited.add(currentPosition.moveNewPosition(new Tuple(0,0)));
-        }
-        else if(current.getPaths().size() > 2)
-        {
-            currentPath = current.getPaths().get(0);
-            current.deletePath(currentPath);
-            paths.push(current);
-            currentPosition.move(currentPath);
-            visited.add(currentPosition.moveNewPosition(new Tuple(0,0)));
-        }
-        else
-        {
-            if(current.getPaths().size() == 2)
-            {
-                if(isBacktracking)
-                {
-                    if(last.equals(currentPosition.moveNewPosition(
-                            current.getPaths().get(0))))
-                        currentPosition.move(current.getPaths().get(1));
-                    else
-                        currentPosition.move(current.getPaths().get(0));
-                    last = currentPosition.moveNewPosition(new Tuple(0,0));
-                }
-                else
-                {
-                    if(visited.contains(currentPosition.moveNewPosition
-                            (current.getPaths().get(0))))
-                        currentPosition.move(current.getPaths().get(1));
-                    else {
-                        currentPosition.move(current.getPaths().get(0));
-                        visited.add(currentPosition.moveNewPosition(new Tuple(0,0)));
-                    }
-                }
+        Stack<Position> pathsInCurrent = getPaths();
+        Position lastPosition = currentPosition;
+        pathsInCurrent.removeIf(x -> visited.contains(x));
+        if (pathsInCurrent.isEmpty())
+          currentPosition = positionStack.pop();
+        else {
+           currentPosition = pathsInCurrent.pop();
+           positionStack.addAll(pathsInCurrent);
+           positionStack.push(lastPosition);
             }
-            else
-            {
-                isBacktracking = true;
-                last = currentPosition.moveNewPosition(new Tuple(0,0));
-                currentPosition.move(current.getPaths().get(0));
-            }
-        }
+        visited.add(currentPosition);
     }
 
-    private Node checkPaths(Position pos)
+    private Stack<Position> getPaths()
     {
-        ArrayList<Tuple> paths = new ArrayList<>();
+        Stack<Position> paths = new Stack<>();
         for(Tuple t : moves)
         {
-            if(Position.checkPosInMaze(currentPosition.moveNewPosition(t), maze) == 0)
-                paths.add(t);
+            Position positionMoved = currentPosition.move(t);
+            if(isPath(positionMoved))
+                paths.push(positionMoved);
         }
-
-        return new Node(pos, paths);
+        return paths;
     }
 
+    private boolean isPath(Position pos)
+    {
+        int x = pos.getX();
+        int y = pos.getY();
+        if(x >= 0 && y >= 0
+                && y < maze.getMap().length
+                && x < maze.getMap()[0].length
+                && maze.getMap()[y][x] == 0)
+            return true;
+
+        return false;
+    }
+
+    private void paintWin(Graphics g)
+    {
+        g.setColor(new Color(66, 66, 66));
+        g.fill3DRect(Map.getFrameWidth()/7, Map.getFrameHeight()/5,
+                (int)(Map.getFrameWidth()*0.7), (int)(Map.getFrameHeight()*0.5),
+                 true);
+        g.setColor(new Color(0, 146, 150));
+        g.fill3DRect(Map.getFrameWidth()/7+pointerConversionRatio*2,
+                Map.getFrameHeight()/5+pointerConversionRatio*2,
+                (int)(Map.getFrameWidth()*0.7)-pointerConversionRatio*4,
+                (int)(Map.getFrameHeight()*0.5)-pointerConversionRatio*4,
+                true);
+        g.setColor(new Color(0, 0, 0));
+        g.setFont(new Font("Calibri", Font.BOLD, 50));
+        g.drawString("Maze solved!",
+                Map.getFrameWidth()/4-pointerConversionRatio*3,
+                Map.getFrameHeight()/2);
+    }
 }
