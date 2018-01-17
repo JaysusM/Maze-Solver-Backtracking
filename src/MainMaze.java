@@ -1,12 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Main {
-    public static void main(String[] args) {
-
+public class MainMaze {
+    public static void main(int[][] map, Position initialP, Position finalP) {
         JFrame mainFrame = new JFrame("Maze Backtracking");
-        mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        userMaze maze = new userMaze();
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Maze maze = new Maze(new Map(map, initialP, finalP));
         mainFrame.setContentPane(maze);
         mainFrame.setLocation(200, 200);
         mainFrame.setVisible(true);
@@ -18,12 +17,5 @@ public class Main {
                 Map.getFrameHeight() + Map.getSizeHeight()
                         + mainFrame.getInsets().top
                         + mainFrame.getInsets().bottom));
-
-        JOptionPane.showMessageDialog(mainFrame,
-                "Left click: Create path\n" +
-                        "Right Click: Create wall\n" +
-                        "Press 'S' to select start point\n" +
-                        "Press 'F' to select finish point\n" +
-                        "Press 'B' to start using backtracking");
     }
 }

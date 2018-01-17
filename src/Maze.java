@@ -20,15 +20,15 @@ public class Maze extends JPanel implements ActionListener {
     private static final Tuple LEFT = new Tuple(-1,0);
     private static final Tuple RIGHT = new Tuple(1,0);
 
-    public Maze()
+    public Maze(Map maze)
     {
         visited = new ArrayList<>();
         positionStack = new Stack<>();
         moves = new ArrayList<>();
         solved = false;
+        this.maze = maze;
 
-        maze = new Map();
-        currentPosition = maze.getFinishPoint();
+        currentPosition = maze.getStartPoint();
         visited.add(currentPosition);
 
         positionStack.push(currentPosition);
@@ -47,13 +47,15 @@ public class Maze extends JPanel implements ActionListener {
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        this.setBackground(Color.darkGray);
+        this.setBackground(new Color(8, 0, 159));
         maze.drawMap(g);
         g.setColor(new Color(230,167,19));
         g.fillRect(currentPosition.getX()*Map.getRectangleSizeHeight()
-                        + pointerConversionRatio/2,
+                        + pointerConversionRatio/2
+                        + currentPosition.getX(),
                 currentPosition.getY()*Map.getRectangleSizeWidth()
-                        + pointerConversionRatio/2,
+                        + pointerConversionRatio/2
+                        + currentPosition.getY(),
                 Map.getRectangleSizeWidth() - pointerConversionRatio,
                 Map.getRectangleSizeHeight() -  pointerConversionRatio);
         if(solved)
@@ -97,6 +99,9 @@ public class Maze extends JPanel implements ActionListener {
             if(isPath(positionMoved))
                 paths.push(positionMoved);
         }
+        paths.sort((x,y) -> (Integer.compare(x.getY(), y.getY()) != 0)
+            ? Integer.compare(x.getY(), y.getX())
+            : Integer.compare(x.getX(), y.getY()));
         return paths;
     }
 

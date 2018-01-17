@@ -12,6 +12,7 @@ public class Map {
      * '0' will be the path, where the pointer
      * can move
      */
+    private int[][] map;
     private Position startPoint;
     private Position finishPoint;
 
@@ -21,32 +22,11 @@ public class Map {
     private static final int frameWidth = 640;
     private static final int frameHeight = 480;
 
-    private int[][] map = {
-            {1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-            {1,0,1,1,1,1,1,1,1,1,1,0,0,0,0,1},
-            {1,0,1,0,1,1,1,1,1,1,1,0,1,1,0,1},
-            {1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,1},
-            {1,0,1,0,1,1,0,1,0,1,1,1,0,1,0,1},
-            {1,0,1,0,1,1,0,1,0,1,1,1,0,1,0,1},
-            {1,0,1,0,1,1,0,1,0,1,1,1,0,1,0,1},
-            {1,0,1,1,1,1,0,1,0,1,1,1,1,1,0,1},
-            {1,0,0,0,0,0,0,1,0,1,1,1,1,1,0,1},
-            {1,0,1,1,0,1,1,1,1,1,1,1,1,1,0,1},
-            {1,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0},
-            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0}
-    };
-
     public Map (int[][] map, Position startPoint, Position finishPoint)
     {
         this.map = map;
         this.startPoint = startPoint;
         this.finishPoint = finishPoint;
-    }
-
-    public Map()
-    {
-        startPoint = new Position(1,0);
-        finishPoint = new Position (15,11);
     }
 
     public Position getStartPoint() {
@@ -99,8 +79,8 @@ public class Map {
                 else if(this.getMap()[h][w] == 0) g.setColor(Color.white);
                 else g.setColor(Color.black);
 
-                g.fillRect(w*Map.getRectangleSizeWidth(),
-                        h*Map.getRectangleSizeHeight(),
+                g.fillRect(w*Map.getRectangleSizeWidth() + w,
+                        h*Map.getRectangleSizeHeight() + h,
                         Map.getRectangleSizeHeight(),
                         Map.getRectangleSizeWidth());
             }

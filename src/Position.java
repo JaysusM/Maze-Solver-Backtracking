@@ -5,7 +5,7 @@
  *  simplifying the program
  */
 
-public class Position {
+public class Position implements Comparable<Position>{
 
     private final int x;
     private final int y;
@@ -42,6 +42,12 @@ public class Position {
     public String toString()
     {
         return "(" + this.x + ", " + this.y + ")";
+    }
+
+    public int compareTo(Position o)
+    {
+        int res = Integer.compare(o.getY(), y);
+        return (res != 0) ? res : Integer.compare(o.getX(), x);
     }
 
     public boolean equals(Object o)
