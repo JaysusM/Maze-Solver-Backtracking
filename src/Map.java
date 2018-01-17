@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.ArrayList;
 
 /** Map class
  *  It shows the map drawn
@@ -67,15 +68,17 @@ public class Map {
         return frameWidth;
     }
 
-    public void drawMap(Graphics g)
+    public void drawMap(Graphics g, ArrayList<Position> visited)
     {
         for(int w = 0; w < sizeWidth; w++)
         {
             for(int h = 0; h < sizeHeight; h++)
             {
+
                 if((h == startPoint.getY() && w == startPoint.getX())
                         || (h == finishPoint.getY() && w == finishPoint.getX()))
                     g.setColor(new Color(0x1F9645));
+                else if(visited.contains(new Position(w,h))) g.setColor(new Color(255, 249, 105));
                 else if(this.getMap()[h][w] == 0) g.setColor(Color.white);
                 else g.setColor(Color.black);
 

@@ -101,16 +101,19 @@ public class userMaze extends JPanel {
                     finishP = !finishP;
                     startP = false;
                 }else if (Character.toLowerCase(e.getKeyChar()) == 'b') {
-                    MainMaze.main(map, startPoint, finishPoint);
-                    closeJFrame();
+                    Tuple t = closeJFrame();
+                    MainMaze.main(map, startPoint, finishPoint, t.getX1(), t.getX2());
                 }
         }});
     }
 
-    private void closeJFrame()
+    private Tuple closeJFrame()
     {
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        int x = frame.getX();
+        int y = frame.getY();
         frame.dispose();
+        return new Tuple(x,y);
     }
 
     private int getRow() {

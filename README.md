@@ -6,6 +6,7 @@ It will use the **backtracking method** with a stack, based on Position verifyin
 The program will draw the maze in a 640x480 window (could be changed) using __javax.swing__ library.
 
 User can now create its own maze to be solved by the program.
+Demonstrations with gifs below.
 
 ## First program view
 
@@ -18,3 +19,11 @@ User can now create its own maze to be solved by the program.
 ## Solved maze view
 
 ![alt text](https://github.com/JaysusM/Maze-Solver-Backtracking/blob/master/views/solvedView.png)
+
+## [GIF] Maze solving
+
+![alt text](https://github.com/JaysusM/Maze-Solver-Backtracking/blob/master/views/mazeSolving.gif)
+
+## [GIF] Maze creation
+
+![alt text](https://github.com/JaysusM/Maze-Solver-Backtracking/blob/master/views/mazeCreation.gif)

@@ -2,12 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainMaze {
-    public static void main(int[][] map, Position initialP, Position finalP) {
+    public static void main(int[][] map, Position initialP, Position finalP, int x, int y) {
         JFrame mainFrame = new JFrame("Maze Backtracking");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Maze maze = new Maze(new Map(map, initialP, finalP));
         mainFrame.setContentPane(maze);
-        mainFrame.setLocation(200, 200);
+        mainFrame.setLocation(x, y);
         mainFrame.setVisible(true);
         mainFrame.setMinimumSize(new Dimension(Map.getFrameWidth() + Map.getSizeWidth(),
                 Map.getFrameHeight() + Map.getSizeHeight()

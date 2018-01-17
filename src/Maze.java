@@ -47,8 +47,8 @@ public class Maze extends JPanel implements ActionListener {
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        this.setBackground(new Color(8, 0, 159));
-        maze.drawMap(g);
+        this.setBackground(new Color(66, 66, 66));
+        maze.drawMap(g, visited);
         g.setColor(new Color(230,167,19));
         g.fillRect(currentPosition.getX()*Map.getRectangleSizeHeight()
                         + pointerConversionRatio/2
@@ -80,14 +80,17 @@ public class Maze extends JPanel implements ActionListener {
         Stack<Position> pathsInCurrent = getPaths();
         Position lastPosition = currentPosition;
         pathsInCurrent.removeIf(x -> visited.contains(x));
+        positionStack.removeAll(pathsInCurrent);
         if (pathsInCurrent.isEmpty())
           currentPosition = positionStack.pop();
         else {
-           currentPosition = pathsInCurrent.pop();
-           positionStack.addAll(pathsInCurrent);
-           positionStack.push(lastPosition);
-            }
-        visited.add(currentPosition);
+            currentPosition = pathsInCurrent.pop();
+            positionStack.addAll(pathsInCurrent);
+            positionStack.push(lastPosition);
+        }
+
+        if(!visited.contains(currentPosition))
+            visited.add(currentPosition);
     }
 
     private Stack<Position> getPaths()
@@ -100,8 +103,8 @@ public class Maze extends JPanel implements ActionListener {
                 paths.push(positionMoved);
         }
         paths.sort((x,y) -> (Integer.compare(x.getY(), y.getY()) != 0)
-            ? Integer.compare(x.getY(), y.getX())
-            : Integer.compare(x.getX(), y.getY()));
+            ? Integer.compare(x.getY(), y.getY())
+            : Integer.compare(x.getX(), y.getX()));
         return paths;
     }
 
@@ -112,7 +115,9 @@ public class Maze extends JPanel implements ActionListener {
         if(x >= 0 && y >= 0
                 && y < maze.getMap().length
                 && x < maze.getMap()[0].length
-                && maze.getMap()[y][x] == 0)
+                && (maze.getMap()[y][x] == 0
+                || new Position(x,y)
+                .equals(maze.getFinishPoint())))
             return true;
 
         return false;
