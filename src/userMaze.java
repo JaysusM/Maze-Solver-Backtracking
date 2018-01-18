@@ -11,7 +11,6 @@ public class userMaze extends JPanel {
     private boolean startP, finishP;
     private Position startPoint;
     private Position finishPoint;
-    private boolean isDone;
 
     public Position getStartPoint() {
         return startPoint;
@@ -25,6 +24,7 @@ public class userMaze extends JPanel {
         return map;
     }
 
+    //Map to be taken as reference
     private int[][] map = {
             {1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
             {1,0,1,1,1,1,1,1,1,1,1,0,0,0,0,1},
@@ -46,7 +46,6 @@ public class userMaze extends JPanel {
         currentCol = -1;
         currentRow = -1;
         startP = false;
-        isDone = false;
         finishP = false;
 
         this.setFocusable(true);
@@ -148,7 +147,4 @@ public class userMaze extends JPanel {
             }
         }
     }
-
-    public boolean isDone()
-    { return isDone; }
 }

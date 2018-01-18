@@ -1,6 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
 
+/** This main will create the maze
+ *  that the user can modify
+ */
+
+
 public class Main {
     public static void main(String[] args) {
 
@@ -8,7 +13,6 @@ public class Main {
         mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         userMaze maze = new userMaze();
         mainFrame.setContentPane(maze);
-        mainFrame.setLocation(200, 200);
         mainFrame.setVisible(true);
         mainFrame.setMinimumSize(new Dimension(Map.getFrameWidth() + Map.getSizeWidth(),
                 Map.getFrameHeight() + Map.getSizeHeight()
@@ -18,6 +22,8 @@ public class Main {
                 Map.getFrameHeight() + Map.getSizeHeight()
                         + mainFrame.getInsets().top
                         + mainFrame.getInsets().bottom));
+
+        mainFrame.setLocationRelativeTo(null);
 
         JOptionPane.showMessageDialog(mainFrame,
                 "Left click: Create path\n" +

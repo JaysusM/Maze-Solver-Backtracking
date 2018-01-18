@@ -1,3 +1,5 @@
+import javafx.geometry.Pos;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -68,7 +70,8 @@ public class Map {
         return frameWidth;
     }
 
-    public void drawMap(Graphics g, ArrayList<Position> visited)
+    public void drawMap(Graphics g, ArrayList<Position> visited,
+                        ArrayList<Position> backtracked)
     {
         for(int w = 0; w < sizeWidth; w++)
         {
@@ -78,7 +81,8 @@ public class Map {
                 if((h == startPoint.getY() && w == startPoint.getX())
                         || (h == finishPoint.getY() && w == finishPoint.getX()))
                     g.setColor(new Color(0x1F9645));
-                else if(visited.contains(new Position(w,h))) g.setColor(new Color(255, 249, 105));
+                else if(backtracked.contains(new Position(w,h))) g.setColor(new Color(100, 99, 11));
+                else if(visited.contains(new Position(w,h))) g.setColor(new Color(238, 255, 0));
                 else if(this.getMap()[h][w] == 0) g.setColor(Color.white);
                 else g.setColor(Color.black);
 

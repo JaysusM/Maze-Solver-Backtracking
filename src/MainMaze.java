@@ -1,6 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * This Main will create the maze
+ * that the algorithm will solve
+ * by using backtracking
+ */
+
 public class MainMaze {
     public static void main(int[][] map, Position initialP, Position finalP, int x, int y) {
         JFrame mainFrame = new JFrame("Maze Backtracking");
