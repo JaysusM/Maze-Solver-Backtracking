@@ -1,5 +1,3 @@
-import javafx.geometry.Pos;
-
 import java.awt.*;
 import java.util.ArrayList;
 
