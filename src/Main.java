@@ -5,8 +5,8 @@ import java.awt.*;
  *  that the user can modify
  */
 
-
 public class Main {
+
     public static void main(String[] args) {
 
         JFrame mainFrame = new JFrame("Maze Backtracking");

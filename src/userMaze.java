@@ -48,6 +48,8 @@ public class userMaze extends JPanel {
         startP = false;
         finishP = false;
 
+        //setMaze();
+
         this.setFocusable(true);
         this.grabFocus();
 
@@ -101,7 +103,7 @@ public class userMaze extends JPanel {
                     startP = false;
                 }else if (Character.toLowerCase(e.getKeyChar()) == 'b') {
                     Tuple t = closeJFrame();
-                    MainMaze.main(map, startPoint, finishPoint, t.getX1(), t.getX2());
+                    MainMaze.main(map, startPoint, finishPoint, t.getX1(), t.getX2(), true);
                 }
         }});
     }

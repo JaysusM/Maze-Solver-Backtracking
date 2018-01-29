@@ -20,9 +20,13 @@ Demonstrations with gifs below.
 
 ![alt text](https://github.com/JaysusM/Maze-Solver-Backtracking/blob/master/views/solvedView.png)
 
-## [GIF] Maze solving
+## [GIF] Maze solving DFS
 
 ![alt text](https://github.com/JaysusM/Maze-Solver-Backtracking/blob/master/views/mazeSolving.gif)
+
+## [GIF] Maze solving BFS
+
+![alt text](https://github.com/JaysusM/Maze-Solver-Backtracking/blob/master/views/mazebfs.gif)
 
 ## [GIF] Maze creation
 

@@ -6,15 +6,16 @@ import java.util.Stack;
 
 public class Maze extends JPanel implements ActionListener {
 
-    private Timer timerMove = new Timer(500, this);
-    private Map maze;
-    private Position currentPosition;
-    private final int pointerConversionRatio = 10;
-    private ArrayList<Tuple> moves;
-    private Stack<Position> positionStack;
-    private ArrayList<Position> visited;
-    private ArrayList<Position> backtracked;
-    private boolean solved;
+    protected Timer timerMove = new Timer(500, this);
+    protected Map maze;
+
+    protected Position currentPosition;
+    protected final int pointerConversionRatio = Map.getRectangleSizeHeight()/4;
+    protected ArrayList<Tuple> moves;
+    protected Stack<Position> positionStack;
+    protected ArrayList<Position> visited;
+    protected ArrayList<Position> backtracked;
+    protected boolean solved;
 
     private static final Tuple UP = new Tuple(0,-1);
     private static final Tuple DOWN = new Tuple(0,1);
@@ -77,7 +78,7 @@ public class Maze extends JPanel implements ActionListener {
         }
     }
 
-    public void backTrackingSolver()
+    protected void backTrackingSolver()
     {
         Stack<Position> pathsInCurrent = getPaths();
         Position lastPosition = currentPosition;
@@ -96,7 +97,7 @@ public class Maze extends JPanel implements ActionListener {
             visited.add(currentPosition);
     }
 
-    private Stack<Position> getPaths()
+    protected Stack<Position> getPaths()
     {
         Stack<Position> paths = new Stack<>();
         for(Tuple t : moves)
@@ -111,7 +112,7 @@ public class Maze extends JPanel implements ActionListener {
         return paths;
     }
 
-    private boolean isPath(Position pos)
+    protected boolean isPath(Position pos)
     {
         int x = pos.getX();
         int y = pos.getY();
@@ -126,7 +127,7 @@ public class Maze extends JPanel implements ActionListener {
         return false;
     }
 
-    private void paintWin(Graphics g)
+    protected void paintWin(Graphics g)
     {
         g.setColor(new Color(66, 66, 66));
         g.fill3DRect(Map.getFrameWidth()/7, Map.getFrameHeight()/5,

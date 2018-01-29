@@ -8,10 +8,14 @@ import java.awt.*;
  */
 
 public class MainMaze {
-    public static void main(int[][] map, Position initialP, Position finalP, int x, int y) {
+    public static void main(int[][] map, Position initialP, Position finalP, int x, int y, boolean bfs) {
         JFrame mainFrame = new JFrame("Maze Backtracking");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Maze maze = new Maze(new Map(map, initialP, finalP));
+        Maze maze;
+        if(bfs)
+            maze = new MazeBFS(new Map(map, initialP, finalP));
+        else
+            maze = new Maze(new Map(map, initialP, finalP));
         mainFrame.setContentPane(maze);
         mainFrame.setLocation(x, y);
         mainFrame.setVisible(true);
