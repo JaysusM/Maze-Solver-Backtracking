@@ -129,20 +129,9 @@ public class Maze extends JPanel implements ActionListener {
 
     protected void paintWin(Graphics g)
     {
-        g.setColor(new Color(66, 66, 66));
-        g.fill3DRect(Map.getFrameWidth()/7, Map.getFrameHeight()/5,
-                (int)(Map.getFrameWidth()*0.7), (int)(Map.getFrameHeight()*0.5),
-                 true);
-        g.setColor(new Color(0, 146, 150));
-        g.fill3DRect(Map.getFrameWidth()/7+pointerConversionRatio*2,
-                Map.getFrameHeight()/5+pointerConversionRatio*2,
-                (int)(Map.getFrameWidth()*0.7)-pointerConversionRatio*4,
-                (int)(Map.getFrameHeight()*0.5)-pointerConversionRatio*4,
-                true);
-        g.setColor(new Color(0, 0, 0));
-        g.setFont(new Font("Calibri", Font.BOLD, 50));
+        g.setColor(new Color(255, 255, 255));
+        g.setFont(new Font("Calibri", Font.BOLD, 24));
         g.drawString("Maze solved!",
-                Map.getFrameWidth()/4-pointerConversionRatio*3,
-                Map.getFrameHeight()/2);
+                12,Map.getFrameHeight()+2);
     }
 }
