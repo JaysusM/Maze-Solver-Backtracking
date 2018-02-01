@@ -10,13 +10,13 @@ Demonstrations with gifs below.
 
 (Solved maze view it's now simpler, in order to see the path to final point)
 
-## First program view
-
-![alt text](https://github.com/JaysusM/Maze-Solver-Backtracking/blob/master/views/firstView.png)
-
 ## Initial program view
 
 ![alt text](https://github.com/JaysusM/Maze-Solver-Backtracking/blob/master/views/initialView.png)
+
+## Algorithm solver chooser
+
+![alt text](https://github.com/JaysusM/Maze-Solver-Backtracking/blob/master/views/chooseMethod.png)
 
 ## [GIF] Maze solving DFS
 

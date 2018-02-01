@@ -95,26 +95,64 @@ public class userMaze extends JPanel {
         this.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if(Character.toLowerCase(e.getKeyChar()) == 's') {
+                if (Character.toLowerCase(e.getKeyChar()) == 's') {
                     startP = !startP;
                     finishP = false;
-                }else if (e.getKeyCode() == KeyEvent.VK_F) {
+                } else if (e.getKeyCode() == KeyEvent.VK_F) {
                     finishP = !finishP;
                     startP = false;
-                }else if (Character.toLowerCase(e.getKeyChar()) == 'b') {
-                    Tuple t = closeJFrame();
-                    MainMaze.main(map, startPoint, finishPoint, t.getX1(), t.getX2(), true);
-                }
-        }});
+                } else if (Character.toLowerCase(e.getKeyChar()) == 'b')
+                    closeJFrame();
+            }
+        });
     }
 
-    private Tuple closeJFrame()
+    private void closeJFrame()
     {
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
         int x = frame.getX();
         int y = frame.getY();
-        frame.dispose();
-        return new Tuple(x,y);
+        createChooseMethod(x,y, frame);
+    }
+
+    private void createChooseMethod(int x, int y, JFrame ancestor)
+    {
+        // Auxiliar panel to choose
+        // how to solve maze
+
+        JPanel chooseMethod = new JPanel();
+
+        chooseMethod.setLayout(new FlowLayout());
+        JButton dfsButton = new JButton("DFS Method");
+        dfsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MainMaze.main(map, startPoint, finishPoint, x, y, false);
+                SwingUtilities.getWindowAncestor(dfsButton).dispose();
+                ancestor.dispose();
+            }
+        });
+
+        JButton bfsButton = new JButton("BFS Button");
+        bfsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MainMaze.main(map, startPoint, finishPoint, x, y, true);
+                SwingUtilities.getWindowAncestor(bfsButton).dispose();
+                ancestor.dispose();
+            }
+        });
+        chooseMethod.add(dfsButton);
+        chooseMethod.add(bfsButton);
+
+        JDialog choose = new JDialog();
+        choose.setTitle("Maze method solver");
+        choose.add(chooseMethod);
+        choose.setVisible(true);
+        choose.setPreferredSize(new Dimension(265,72));
+        choose.setMinimumSize(new Dimension(265,72));
+        choose.setLocationRelativeTo(null);
+        choose.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     }
 
     private int getRow() {
