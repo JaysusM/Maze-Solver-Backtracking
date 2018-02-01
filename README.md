@@ -1,4 +1,14 @@
 # Maze-Solver-Backtracking
+<hr>
+
+## How to run the project?
+
+Download the full repository and import it into your java IDE or
+download the [Jar](https://github.com/JaysusM/Maze-Solver-Backtracking/raw/master/MazeSolverBacktracking.jar) and
+<br/>+ Windows: Execute it with java
+<br/>+ Linux: Open a terminal, access the file directory and write `javac -jar MazeSolverBacktracking.jar`
+
+<hr>
 
 This program will give you a solution to a given maze, it could be random generated or a one created by the user.
 
