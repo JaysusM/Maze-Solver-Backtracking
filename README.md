@@ -6,7 +6,7 @@
 Download the full repository and import it into your java IDE or
 download the [Jar](https://github.com/JaysusM/Maze-Solver-Backtracking/raw/master/MazeSolverBacktracking.jar) and
 <br/>+ Windows: Execute it with java
-<br/>+ Linux: Open a terminal, access the file directory and write `javac -jar MazeSolverBacktracking.jar`
+<br/>+ Linux/MacOS: Open a terminal, access the file directory and write `java -jar MazeSolverBacktracking.jar`
 
 <hr>
 
